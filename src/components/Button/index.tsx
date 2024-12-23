@@ -19,19 +19,23 @@ function Button ({children, buttonType, rounded, outline, ...rest }: ButtonProps
 
     const baseStyling = classNames(rest.className,'flex items-center px-3 py-1.5 border text-white font-semibold rounded', 
         {
-        'border-blue-500 bg-blue-500': ButtonTypes[buttonType] == ButtonTypes.Primary,
-        'border-red-500 bg-red-500': ButtonTypes[buttonType] === ButtonTypes.Danger,
-        'border-yellow-500 bg-yellow-500': ButtonTypes[buttonType] === ButtonTypes.Warning,
-        'border-green-500 bg-green-500': ButtonTypes[buttonType] === ButtonTypes.Success,
-        'border-gray-500 bg-gray-500': ButtonTypes[buttonType] === ButtonTypes.Secondary,
+        'border-blue-500 bg-blue-500': !outline && ButtonTypes[buttonType] == ButtonTypes.Primary,
+        'border-red-500 bg-red-500': !outline && ButtonTypes[buttonType] === ButtonTypes.Danger,
+        'border-yellow-500 bg-yellow-500': !outline && ButtonTypes[buttonType] === ButtonTypes.Warning,
+        'border-green-500 bg-green-500': !outline && ButtonTypes[buttonType] === ButtonTypes.Success,
+        'border-gray-500 bg-gray-500': !outline && ButtonTypes[buttonType] === ButtonTypes.Secondary,
+        
+        'border-blue-500 text-blue-500': outline && ButtonTypes[buttonType] == ButtonTypes.Primary,
+        'border-red-500 text-red-500': outline && ButtonTypes[buttonType] == ButtonTypes.Danger,
+        'border-green-500 text-green-500': outline && ButtonTypes[buttonType] == ButtonTypes.Success,
+        'border-yellow-500 text-yellow-500': outline && ButtonTypes[buttonType] == ButtonTypes.Warning,
+        'text-gray-500 border-gray-500': outline && ButtonTypes[buttonType] === ButtonTypes.Secondary,
+        
         'rounded-full': rounded,
         'bg-white': outline,
-        'text-blue-500': outline && ButtonTypes[buttonType] == ButtonTypes.Primary,
-        'text-red-500': outline && ButtonTypes[buttonType] == ButtonTypes.Danger,
-        'text-white-500': outline && ButtonTypes[buttonType] == ButtonTypes.Warning,
     }
 );
-
+    console.log(baseStyling)
     return (
         <>
             <button {...rest} className={`${baseStyling}` }>{children}</button>
