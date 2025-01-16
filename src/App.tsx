@@ -17,8 +17,7 @@ function App() {
     {
       label: "How about React ?",
       content: "We can use the react in any project",
-      key: "FAQ",
-      fqw: "dwawd"
+      key: "FAQ"
     } 
   ]
 
