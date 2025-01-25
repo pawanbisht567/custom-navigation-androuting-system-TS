@@ -1,17 +1,40 @@
-interface OptionsItem {
+import { useState } from "react";
+
+export interface OptionsItem {
     label: string;
     value: string;
-}
+  }
 
 interface DropDownProps {
     options: OptionsItem[];
+    selection: OptionsItem | null;
+    onSelect: (selected: OptionsItem) => void;
 }
-function DropDown( { options }: DropDownProps) {
-    const renderedOptions = options.map((option: OptionsItem) => {
-        return <div>{option.label}</div>
+function DropDown( props: DropDownProps) {
+    const [isOpen, SetIsOpen] = useState(false); 
+    
+    const handleClick = () => {
+        SetIsOpen(!isOpen)
+    }
+
+    const handleClickOptions = (option: OptionsItem) => {
+        SetIsOpen(false);
+        props.onSelect(option);
+    }
+
+    const renderedOptions = props.options.map((option: OptionsItem) => {
+        return <div key={option.value} onClick={() => handleClickOptions(option)}>{option.label}</div>
     })
+
+    let content = "Select...";
+    if(props.selection) {
+        content = props.selection.label
+    }
     return (
-        <>{renderedOptions}</>
+        <>
+        <div onClick={handleClick}>{content}</div>
+        <div>{isOpen && renderedOptions}</div>
+        </>
     )
 }
 

@@ -1,6 +1,8 @@
-import DropDown from "./components/Dropdown";
+import { useState } from "react";
+import DropDown, { OptionsItem } from "./components/Dropdown"; // Import OptionsItem
 
 const App = () => {
+  const [selectedOption, SetSelectedOption] = useState<OptionsItem | null>(null);
 
   const options = [
     {
@@ -14,8 +16,12 @@ const App = () => {
     },
   ]
 
+  const handleOptionSelect = (selected: OptionsItem) => {
+    SetSelectedOption(selected)
+  }
+
   return (
-    <DropDown options={options}/>
+    <DropDown options={options} selection={selectedOption} onSelect={handleOptionSelect} />
   )
 };
 
