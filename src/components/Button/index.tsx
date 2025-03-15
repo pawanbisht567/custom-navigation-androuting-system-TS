@@ -35,7 +35,6 @@ function Button ({children, buttonType, rounded, outline, ...rest }: ButtonProps
         'bg-white': outline,
     }
 );
-    console.log(baseStyling)
     return (
         <>
             <button {...rest} className={`${baseStyling}` }>{children}</button>

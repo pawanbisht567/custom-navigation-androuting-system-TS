@@ -21,7 +21,7 @@ const App = () => {
   }
 
   return (
-    <DropDown options={options} selection={selectedOption} onSelect={handleOptionSelect} />
+    <DropDown options={options} value={selectedOption} onChange={handleOptionSelect} />
   )
 };
 
