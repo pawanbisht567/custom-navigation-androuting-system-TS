@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoChevronDown, IoChevronUp  } from "react-icons/io5";
 import Pannel from "../Pannel";
 
@@ -13,8 +13,23 @@ interface DropDownProps {
     onChange: (selected: OptionsItem) => void;
 }
 function DropDown( props: DropDownProps) {
-    const [isOpen, SetIsOpen] = useState(false); 
+    const [isOpen, SetIsOpen] = useState(false);
+    const divEl = useRef<HTMLDivElement | null>(null);
     
+    useEffect(() => {
+        const handler = (event: Event) => {
+            if(!divEl.current?.contains(event.target as Node)) {
+                SetIsOpen(false)
+            }
+        }
+
+        document.addEventListener('click', handler, true); //
+        return () => {
+            document.removeEventListener('click', handler)
+        }
+
+    }, [])
+
     const handleClick = () => {
         SetIsOpen(!isOpen)
     }
@@ -33,7 +48,7 @@ function DropDown( props: DropDownProps) {
         content = props.value.label;
     }
     return (
-        <div className="w-48 relative" >
+        <div ref={divEl} className="w-48 relative" >
             <Pannel className="flex justify-between items-center cursor-pointer" onClick={handleClick}>
                 {content} 
                 {!isOpen && <IoChevronDown /> }
