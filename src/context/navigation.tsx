@@ -7,7 +7,10 @@ interface NavigationContextType {
 }
 
 // Create context with a default value
-const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
+const NavigationContext = createContext<NavigationContextType>({
+    currentPath: "/",
+    navigate: () => {}, // No-op function as a fallback
+});
 
 interface NavigationProviderProps {
     children: ReactNode;
@@ -23,7 +26,7 @@ function NavigationProvider ({ children } : NavigationProviderProps) {
             setCurrentPath(window.location.pathname);
         }
 
-        document.addEventListener('popstate', handler)
+        document.addEventListener('popstate', handler);
 
         return () => {
             document.removeEventListener('popstate', handler);
@@ -33,13 +36,11 @@ function NavigationProvider ({ children } : NavigationProviderProps) {
 
     const navigate = (to: string) => {
         window.history.pushState({}, '', to);
+        setCurrentPath(to);
     }
-
-    console.log(currentPath)
 
     return ( <NavigationContext.Provider value={{currentPath, navigate}}>
         {children}
-        {currentPath}
     </NavigationContext.Provider> )
 };
 

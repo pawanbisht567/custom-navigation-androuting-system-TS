@@ -1,4 +1,3 @@
-import './App.css'
 import Button from '../components/Button'
 import { FiMapPin } from "react-icons/fi";
 import { ImBin2 } from "react-icons/im";
