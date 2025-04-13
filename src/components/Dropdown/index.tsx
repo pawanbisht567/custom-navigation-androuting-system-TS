@@ -50,12 +50,12 @@ function DropDown( props: DropDownProps) {
     }
     return (
         <div ref={divEl} className="w-48 relative" >
-            <Pannel className="flex justify-between items-center cursor-pointer" onClick={handleClick}>
+            <Pannel className="flex justify-between items-center cursor-pointer p-3" onClick={handleClick}>
                 {content} 
                 {!isOpen && <IoChevronDown /> }
                 {isOpen && <IoChevronUp /> }
             </Pannel>
-            {isOpen && <Pannel className="absolute top-full">{renderedOptions}</Pannel>}
+            {isOpen && <Pannel className="absolute top-full p-2">{renderedOptions}</Pannel>}
         </div>
     )
 }

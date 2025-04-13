@@ -14,12 +14,11 @@ const NavigationContext = createContext<NavigationContextType>({
 
 interface NavigationProviderProps {
     children: ReactNode;
-  }
+}
 
 function NavigationProvider ({ children } : NavigationProviderProps) {
 
     const [currentPath, setCurrentPath] = useState(window.location.pathname)
-
 
     useEffect(()=> {
         const handler = () => {
